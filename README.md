@@ -7,46 +7,109 @@
 [![GitHub forks](https://img.shields.io/github/forks/fawno/FPDF-mirror)](https://github.com/fawno/FPDF-mirror/network)
 [![GitHub stars](https://img.shields.io/github/stars/fawno/FPDF-mirror)](https://github.com/fawno/FPDF-mirror/stargazers)
 
-# FPDF
+# FPDF (dev-fawno branch)
 
-## What is FPDF?
-FPDF is a PHP class which allows to generate PDF files with pure PHP, that is to say without using the PDFlib library. F from FPDF stands for Free: you may use it for any kind of usage and modify it to suit your needs.
+> **Temporary compatibility branch for FPDF**
 
-FPDF has other benefits: high level functions. Here is a list of its main features:
+This branch provides a temporary patched version of the original FPDF library for situations where compatibility issues or critical bugs affect production environments before an official upstream fix is released.
 
-- Choice of measure unit, page format and margins
-- Page header and footer management
-- Automatic page break
-- Automatic line break and text justification
-- Image support (JPEG, PNG and GIF)
-- Colors
-- Links
-- TrueType, Type1 and encoding support
-- Page compression
+## Purpose of this branch
 
-FPDF requires no extension (except Zlib to enable compression and GD for GIF support). The latest version requires at least PHP 5.1 and is compatible with PHP 7 and PHP 8.
+The **`dev-fawno`** branch exists as a short-term compatibility layer.
 
-The [tutorials](http://fpdf.org/en/tutorial/index.php) will give you a quick start. The complete online documentation is [here](http://fpdf.org/en/doc/index.php) and download area is [there](http://fpdf.org/en/download.php). It is advised to read the [FAQ](http://fpdf.org/en/FAQ.php) which lists the most common questions and issues.
+Its purpose is to provide:
 
-A [script](http://fpdf.org/en/script/index.php) section is available and provides some useful extensions (such as bookmarks, rotations, tables, barcodes...). Also, some of these scripts are delivered as traits with this package, you can check the list of available scripts [here](scripts).
+* Fixes for new PHP version incompatibilities
+* Temporary workarounds for deprecated features
+* Runtime warning corrections
+* Critical bug fixes affecting stability
 
-## Installation
+This branch is **not intended to replace the official FPDF releases**.
 
-You can install the package via composer:
+It exists to bridge the gap between an issue being discovered and the official FPDF maintainer publishing a proper fix.
 
-```sh
+Once upstream resolves the issue, this branch is realigned accordingly.
+
+## Why does this exist?
+
+Historically, there have been situations where:
+
+* New PHP versions introduced breaking changes
+* Existing FPDF code generated warnings or errors
+* Official fixes took weeks or even months to be released
+
+For production systems, waiting is not always an option.
+
+This branch provides a practical fallback.
+
+## When should I use this?
+
+Use the standard stable package by default:
+
+```bash
 composer require fpdf-mirror/fpdf
 ```
 
-## What languages can I use?
-The class can produce documents in many languages other than the Western European ones: Central European, Cyrillic, Greek, Baltic and [Thai](http://fpdf.org/en/script/script87.php), provided you own TrueType or Type1 fonts with the desired character set. [UTF-8 support](http://fpdf.org/en/script/script92.php) is also available.
+Only switch to **`dev-fawno`** if:
 
-## What about performance?
-Of course, the generation speed of the document is less than with PDFlib. However, the performance penalty keeps very reasonable and suits in most cases, unless your documents are particularly complex or heavy.
+* You encounter a known compatibility issue
+* Your PHP version introduces a breaking change
+* A temporary patch has been announced in this branch
 
-For any remark, question or problem, you can leave a message on the [forum](http://fpdf.org/phorum/) (you don't need to register).
+To switch:
 
-You can write to me [here](mailto:oliver@fpdf.org) (but please use the forum for basic questions).
+```bash
+composer require fpdf-mirror/fpdf dev-fawno
+```
+
+This allows you to temporarily apply the fixes without manually patching vendor files.
+
+Once the official upstream version is released, you can return to stable:
+
+```bash
+composer require fpdf-mirror/fpdf
+```
+
+## What is FPDF?
+
+FPDF is a PHP class which allows generating PDF files with pure PHP, without using the PDFlib library.
+
+FPDF offers:
+
+* Choice of measure unit, page format and margins
+* Header and footer management
+* Automatic page breaks
+* Automatic line breaks and text justification
+* Image support (JPEG, PNG and GIF)
+* Colors
+* Links
+* TrueType, Type1 and encoding support
+* Page compression
+
+FPDF requires no extensions (except Zlib for compression and GD for GIF support).
 
 ## About this repository
-The `/fpdf` directory contains a clone of the official FPDF releases, available at http://www.fpdf.org. No modifications will be made to that directory, which contains the history of changes between versions.
+
+This repository is a Composer-compatible mirror of the official FPDF project.
+
+The stable branches aim to remain as close as possible to the original source.
+
+The `dev-fawno` branch is the only branch where temporary compatibility patches may be introduced when necessary.
+
+Official upstream source:
+
+https://www.fpdf.org
+
+Official documentation:
+
+https://www.fpdf.org/en/doc/index.php
+
+Official downloads:
+
+https://www.fpdf.org/en/download.php
+
+## Important notice
+
+If you are using this branch, you should consider it a temporary solution.
+
+Whenever an official FPDF release includes the required fix, upgrading back to the stable release is strongly recommended.
